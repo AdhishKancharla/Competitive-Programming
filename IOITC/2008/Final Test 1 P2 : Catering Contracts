@@ -1,0 +1,67 @@
+/*
+Author - Adhish Kancharla (ak2006) 
+Problem Name - IOITC 2008 Final Test 1 P2 : Catering Contracts
+*/
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+using vb = vector<bool>;
+using vvb = vector<vb>;
+using vi = vector<int>;
+using vvi = vector<vi>;
+using vl = vector<ll>;
+using vvl = vector<vl>;
+using vc = vector<char>;
+using vvc = vector<vc>;
+const int mod = 10243;
+#define pb push_back
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+
+int n = 2505,k = 95;
+vvi C(n,vi(k));//Refer to https://www.iarcs.org.in/inoi/online-study-material/problems/catering-contracts-2pi-soln.php#
+vvi adj(n);
+int ans = 0;
+void dfs(int i,int p)
+{
+    int cnt = 0;//Number of nodes in the subtree of i
+
+    C[i][0] = 1;//Tricky Part #1 - Although this line may not look correct it actually is
+
+    for (int c:adj[i]){
+        if (c == p)continue;
+        dfs(c,i);
+        cnt++;
+    }
+    vvi d(cnt + 1,vi(k + 1));
+
+    int cur = 0;
+
+    d[0][0] = 1;
+
+    for (int c:adj[i]){
+        if (c == p)continue;
+        cur++;
+        for (int a = 0;a<=k;a++){//Tricky Part #2 - Start a from 0 NOT 1
+            for (int x = 0;x<=a;x++)d[cur][a] = (d[cur][a] + (d[cur - 1][x] * C[c][a - x])%mod)%mod;
+            //d[cur][a] = (d[cur][a] + d[cur - 1][a])%mod;
+        }
+    }
+
+
+
+    for (int a = 1;a<=k;a++){C[i][a] = d[cur][a - 1];}//ans += C[i][a];ans %= mod;
+}
+int main()
+{
+    fast;
+    cin>>n>>k;
+    for (int i = 0;i<n - 1;i++){
+        int u,v;
+        cin>>u>>v;
+        adj[u].pb(v),adj[v].pb(u);
+    }
+    dfs(1,-1);
+    for (int i = 1;i<=n;i++)ans = (ans + C[i][k])%mod;
+    cout<<ans;
+    return 0;
+}
