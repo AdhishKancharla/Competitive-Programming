@@ -1,6 +1,10 @@
 /*
 Author - Adhish Kancharla (ak2006) 
 Problem Name - IOITC 2008 Final Test 1 P2 : Catering Contracts
+
+Tags - DP on trees
+Refer to https://www.iarcs.org.in/inoi/online-study-material/problems/catering-contracts-2pi-soln.php#
+
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -18,7 +22,7 @@ const int mod = 10243;
 #define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 
 int n = 2505,k = 95;
-vvi C(n,vi(k));//Refer to https://www.iarcs.org.in/inoi/online-study-material/problems/catering-contracts-2pi-soln.php#
+vvi C(n,vi(k));
 vvi adj(n);
 int ans = 0;
 void dfs(int i,int p)
