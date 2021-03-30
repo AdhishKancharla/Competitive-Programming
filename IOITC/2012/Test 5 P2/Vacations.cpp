@@ -1,6 +1,11 @@
 /*
 Author - Adhish Kancharla (ak2006) 
 Problem Name - IOITC 2012 Test 5 P2 : Vacations
+
+Way 1 - SQRT Decomposition on array using a set and small to large merging - commented out part (does not work as intended)
+Way 2 - Standard Mo's with frequency array
+
+
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -96,7 +101,3 @@ int main()
     for (int i = 0;i<q;i++)cout<<out[i]<<'\n';
     return 0;
 }
-/*
-Way 1 - SQRT Decomposition on array using a set and small to large merging - commented out part (does not work as intended)
-Way 2 - Standard Mo's with frequency array
-*/
