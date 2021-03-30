@@ -4,6 +4,8 @@ Problem Name - IOITC 2013 Online Test 3 : An Odd Sort
 
 Solution Code Idea - https://github.com/keshav57/ioi-training/blob/master/IOITC/2013/OddSort/OddSort.cpp
 
+Tags - DP , Modification of LIS
+
 Explanation -
 Initially move all elements to their correct positions in the sorted array - this is an upper bound on the cost required to sort the array (i.e the sum of
 all elements in the array is definitely enough to sort the array)
