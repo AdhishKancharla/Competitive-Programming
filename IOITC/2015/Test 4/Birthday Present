@@ -1,0 +1,62 @@
+/*
+Author - Adhish Kancharla (ak2006)
+Problem Name - 2015 Test 4 : Birthday Present
+Tags - Prefix sums, frequency array
+
+Hint - Think a bit along the lines of the tags by trying to simplify the function
+Idea -
+1) Let p[c][i] be the # of occurrence of character c (c goes from 0 to 25) in the string s0,s1,...,si
+2) Hence p[c][i] - p[c][j - 1] gives the # of occurrences of character c in the substring sj,sj+1,...,si
+3) Now for each query go over all j (j is the starting position of the string T)
+3) For each character c find the first i such that # of occurrences of c in sj,sj+1,...,si is >= t using Binary Search
+4) Accumulate these i positions in array pos and sort them
+5) Now pos[k] actually represents the first i such that sj,sj+1,...,si has k characters
+6) Thus the ans[0] = pos[0] - j and ans[i] = pos[i] - pos[i - 1] - try out a few examples to see why this is the case
+
+*/
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+using vb = vector<bool>;
+using vvb = vector<vb>;
+using vi = vector<int>;
+using vvi = vector<vi>;
+using vl = vector<ll>;
+using vvl = vector<vl>;
+using vc = vector<char>;
+using vvc = vector<vc>;
+const ll mod = 1e9 + 7,inf = 1e18;
+#define pb push_back
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+int n = 1e4,q,t;
+string s;
+int main()
+{
+    cin>>n>>s;
+    vvi p(26,vi(n));
+    p[s[0] - 'a'][0] = 1;
+    for (int i = 1;i<n;i++){
+        for (int j = 0;j<26;j++){
+            p[j][i] = p[j][i - 1] + (s[i] - 'a' == j ? 1 : 0);
+        }
+    }
+
+    cin>>q;
+    while (q--){
+        cin>>t;
+        vi ans(27);
+        for (int j = 0;j<n;j++){
+            vi pos(26);
+            for (int c = 0;c<26;c++){
+                pos[c] = lower_bound(p[c].begin(),p[c].end(),((j == 0 ? 0 : p[c][j - 1]) + t)) - p[c].begin();
+            }
+            sort(pos.begin(),pos.end());
+            ans[0] += max(0,pos[0] - j);
+            for (int i = 1;i<=25;i++)ans[i] += (pos[i] - pos[i - 1]);
+            ans[26] += n - pos[25];
+        }
+        for (int i = 0;i<=26;i++)cout<<ans[i]<<" ";
+        cout<<endl;
+    }
+    return 0;
+}
