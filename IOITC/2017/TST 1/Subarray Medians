@@ -18,7 +18,7 @@ Idea -
    and hence these would be the only subarrays to count
 
    4) Use square root decomposition with prefix sums , frequency map and lazy propogation to get TLE (24 points only)
-   5) Change the frequency map to a frequency array to get AC
+   5) Change the frequency map to a frequency array to get AC (also use an offset since the indices in the frequency array can get -ve - I used an offset of 2n)
 
 
 */
