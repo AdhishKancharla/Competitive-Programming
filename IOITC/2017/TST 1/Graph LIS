@@ -1,0 +1,59 @@
+/*
+Author - Adhish Kancharla(ak2006)
+Problem Name - 2017 TST 1 - Graph LIS
+
+Tags - Easy LIS DP , Sorting
+Credits for solution - https://www.codechef.com/viewsolution/25295183 (by https://www.codechef.com/users/sumeet_24)
+Hints -
+1) Sort the array
+
+Idea -
+1) For each element in the reverse order of the elements in the array -
+   Find all nodes reachable from this node and do DP[index] = max(DP[reachable] + 1) and initialize DP[index] = 1
+*/
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+using vb = vector<bool>;
+using vvb = vector<vb>;
+using vi = vector<int>;
+using vvi = vector<vi>;
+using vl = vector<ll>;
+using vvl = vector<vl>;
+using vc = vector<char>;
+using vvc = vector<vc>;
+const ll mod = 1e9 + 7,inf = 1e18;
+#define pb push_back
+#define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+int n = 1e3 + 5,m,ans = 1;
+vb vis(n);
+vi dp(n);
+vvi adj(n),a(n,vi(2));
+void dfs(int i)
+{
+    vis[i] = 1;
+    for (int c:adj[i])if (!vis[c])dfs(c);
+}
+int main()
+{
+    cin>>n>>m;
+    for (int i = 1;i<=n;i++){cin>>a[i][0];a[i][1] = i;}
+    while (m--){
+        int u,v;
+        cin>>u>>v;
+        adj[u].pb(v);
+    }
+    sort(a.begin() + 1,a.begin() + n + 1);
+    for (int i = n;i>=1;i--){
+        for (int j = 1;j<=n;j++)vis[j] = 0;
+        int pos = a[i][1];
+        dfs(pos);
+        dp[pos] = 1;
+        for (int j = 1;j<=n;j++){
+            if (vis[j] && j != pos)dp[pos] = max(dp[pos],dp[j] + 1);
+        }
+        ans = max(ans,dp[pos]);
+    }
+    cout<<ans;
+    return 0;
+}
