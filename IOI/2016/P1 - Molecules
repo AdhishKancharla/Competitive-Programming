@@ -1,0 +1,40 @@
+/*
+Author - Adhish Kancharla(ak2006)
+Problem Name - IOI 2016 P1: Molecules
+
+Tags - Greedy, Subset sum lying between l and r
+
+Idea - Similar to official solution 
+1) Sort the #'s in increasing order
+2) It can be proved that a contiguous subarray will have a sum b/w l and r if there is any solution
+3) Hence do 2 pointers / sliding window to find an interval by expanding/contracting the current interval as appropriate
+
+Similar (harder) Problem - 
+BOI 2021 P1: Books (https://oj.uz/problem/view/BOI21_books)
+*/
+#include <bits/stdc++.h>
+using namespace std;
+#define int int64_t
+#define vi vector<int>
+#define vvi vector<vi>
+int32_t main()
+{
+    int n,mn,mx;
+    cin>>n>>mn>>mx;
+    vvi A(n,vi(2));
+    for (int i = 0;i<n;i++){cin>>A[i][0];A[i][1] = i;}
+    sort(A.begin(),A.end());
+    int sum = A[0][0],l = 0,r = 1;
+    for (;r<=n;){
+        if(sum>=mn && sum<=mx)break;
+        if(sum>mx){sum-=A[l][0];l++;}
+        else{if (r == n)break;sum+=A[r][0];r++;}
+        if(sum>=mn && sum<=mx)break;
+    }
+    if (sum>=mn && sum<=mx){
+        cout<<r-l<<endl;
+        for (int i = l;i<r;i++)cout<<A[i][1]<<" ";
+    }
+    else cout<<0;
+    return 0;
+}
