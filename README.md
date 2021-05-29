@@ -1,6 +1,6 @@
 # Competitive-Programming
 
-I have started solving IOI,IOITC and other OI problems (in March 2021) and am uploading my solutions to this repository.
+I have started solving IOI, IOITC and other OI problems (in March 2021) and am uploading my solutions (code along with tags, explanations and useful links to similar problems) to this repository.
 
 **My YouTube Channel**
 
